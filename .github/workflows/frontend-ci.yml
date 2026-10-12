@@ -42,7 +42,7 @@ jobs:
           function walk(dir){
             return fs.existsSync(dir)?fs.readdirSync(dir,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(path.join(dir,x.name)):[path.join(dir,x.name)]):[];
           }
-          for(const name of ["home-mobile.jpg","gift-studio-mobile.jpg"]){
+          for(const name of ["home-mobile.jpg","gift-studio-mobile.jpg","boxes-mobile.jpg","checkout-mobile.jpg"]){
             const file=walk("test-results").find(p=>p.endsWith(name));
             if(!file){console.log("SCREENSHOT_MISSING:"+name);continue;}
             const b64=fs.readFileSync(file).toString("base64");

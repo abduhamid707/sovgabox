@@ -25,6 +25,9 @@ test("all core routes render and fit screen",async ({page},testInfo)=>{
   await expect(page.getByRole("heading",{name:item.title}).first()).toBeVisible();
   await expect(page.locator("header")).toBeVisible();
   await checkViewport(page,item.path);
+  if(item.path==="/boxes"&&testInfo.project.name==="mobile-390"){
+   await page.screenshot({path:testInfo.outputPath("boxes-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
+  }
  }
  if(testInfo.project.name==="mobile-390"){
   await page.goto("/");
@@ -34,7 +37,7 @@ test("all core routes render and fit screen",async ({page},testInfo)=>{
   await page.screenshot({path:testInfo.outputPath("gift-studio-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
  }
 });
-test("gift builder to cart to demo order works without duplicate transfer",async ({page})=>{
+test("gift builder to cart to demo order works without duplicate transfer",async ({page},testInfo)=>{
  const runtimeErrors=[];
  page.on("pageerror",err=>runtimeErrors.push(err.message));
  await page.goto("/builder");
@@ -64,6 +67,10 @@ test("gift builder to cart to demo order works without duplicate transfer",async
  await expect(page.locator(".cart-item")).toHaveCount(1);
  await page.getByRole("link",{name:/Davom etish/}).click();
  await expect(page).toHaveURL(/\/checkout$/);
+ await checkViewport(page,"/checkout with cart");
+ if(testInfo.project.name==="mobile-390"){
+  await page.screenshot({path:testInfo.outputPath("checkout-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
+ }
  await page.getByPlaceholder("Ismingizni kiriting").fill("Demo User");
  await page.getByPlaceholder("+998 90 123 45 67").fill("+998901234567");
  await page.getByPlaceholder("Shahar, tuman, ko‘cha, uy...").fill("Demo ko‘cha, 1-uy");
