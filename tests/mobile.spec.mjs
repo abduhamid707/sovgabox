@@ -3,7 +3,7 @@ const pages=[
  {path:"/",title:/His-tuyg‘ular/},
  {path:"/boxes",title:/Tayyor boxlar/},
  {path:"/catalog",title:/Mahsulotlar/},
- {path:"/builder",title:/O‘zing yaratgan/},
+ {path:"/builder",title:/Sovg‘angni/},
  {path:"/cart",title:/Savatcha/},
  {path:"/checkout",title:/Savatchangiz bo‘sh/}
 ];
@@ -118,7 +118,7 @@ test("mobile cart cards stay inside viewport even with many products",async ({pa
  await page.goto("/catalog");
  const buttons=page.locator(".product-card-actions button");
  for(let i=0;i<7;i++)await buttons.nth(i).click();
- await page.goto("/cart");
+ await page.getByRole("link",{name:"Savatcha"}).first().click();
  await expect(page.locator(".cart-item")).toHaveCount(7);
  await checkViewport(page,"/cart with many products");
  const sizes=await page.locator(".cart-item").evaluateAll(els=>els.map(el=>{
