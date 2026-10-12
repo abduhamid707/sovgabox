@@ -28,10 +28,10 @@ test("all core routes render and fit screen",async ({page},testInfo)=>{
  }
  if(testInfo.project.name==="mobile-390"){
   await page.goto("/");
-  await page.screenshot({path:testInfo.outputPath("home-mobile.png"),fullPage:false});
+  await page.screenshot({path:testInfo.outputPath("home-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
   await page.goto("/builder");
   await expect(page.locator(".gift-stage-premium")).toBeVisible();
-  await page.screenshot({path:testInfo.outputPath("gift-studio-mobile.png"),fullPage:false});
+  await page.screenshot({path:testInfo.outputPath("gift-studio-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
  }
 });
 test("gift builder to cart to demo order works without duplicate transfer",async ({page})=>{
@@ -41,7 +41,7 @@ test("gift builder to cart to demo order works without duplicate transfer",async
  await expect(page.locator(".gift-stage-premium")).toBeVisible();
  await page.getByRole("button",{name:"Qutiga qo‘shish",exact:true}).first().click();
  await expect(page.locator(".count-pill")).toHaveText("1 ta");
- await page.getByRole("button",{name:"Qutiga qo‘shish",exact:true}).first().click();
+ await page.getByRole("button",{name:"Yana qo‘shish",exact:true}).first().click();
  await expect(page.locator(".count-pill")).toHaveText("2 ta");
  await page.getByRole("button",{name:"Tabrik yozish"}).click();
  await page.locator("#gift-note").fill("Har kuning quvonchga to‘lsin!");
@@ -58,6 +58,10 @@ test("gift builder to cart to demo order works without duplicate transfer",async
  await expect(page).toHaveURL(/\/cart$/);
  await expect(page.locator(".cart-item")).toHaveCount(1);
  await expect(page.locator(".cart-item .qty span")).toHaveText("2");
+ await page.getByRole("link",{name:/O‘zing yig‘/}).first().click();
+ await expect(page.locator(".count-pill")).toHaveText("0 ta");
+ await page.getByRole("link",{name:"Savatcha"}).first().click();
+ await expect(page.locator(".cart-item")).toHaveCount(1);
  await page.getByRole("link",{name:/Davom etish/}).click();
  await expect(page).toHaveURL(/\/checkout$/);
  await page.getByPlaceholder("Ismingizni kiriting").fill("Demo User");
