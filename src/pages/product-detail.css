@@ -1,0 +1,53 @@
+.product-detail-page{max-width:1180px}
+.product-breadcrumb{display:flex;gap:12px;align-items:center;color:#a5858b;font-size:12px;margin:4px 0 23px;min-width:0}
+.product-breadcrumb a{display:flex;align-items:center;gap:7px;color:#a6546a}
+.product-breadcrumb span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-detail-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.88fr);gap:42px;align-items:start}
+.product-gallery,.product-detail-information{min-width:0}
+.product-gallery-main{position:relative;background:#f8efea;border-radius:23px;overflow:hidden;height:480px}
+.product-gallery-main>img{height:100%;width:100%;object-fit:cover}
+.product-detail-mock{position:absolute;left:18px;top:17px;border-radius:100px;padding:8px 13px;font-size:11px;color:#a24a63;background:#fffaf5f2;font-weight:700}
+.product-zoom-button{position:absolute;bottom:18px;right:18px;display:flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:11px 14px;background:#fffaf5ef;color:#935062;font-weight:700;font-size:12px}
+.product-gallery-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#a58790;font-size:11px;padding:15px 4px}
+.product-gallery-footer span:first-child{display:flex;align-items:center;gap:7px}
+.product-detail-category{font-size:11px;color:#ac5d73;font-weight:800;letter-spacing:.15em}
+.product-detail-information h1{font-size:clamp(36px,4.5vw,55px);margin:13px 0 12px;line-height:1.12}
+.product-detail-subtitle{color:#7e6b73;font-size:15px;line-height:1.8}
+.product-detail-price-label{font-size:12px;color:#a28a92;margin:25px 0 7px}.product-detail-price-label span{color:#b75d75}
+.product-detail-price{font:700 clamp(29px,3vw,38px) "Playfair Display",serif;color:#a54a64}
+.product-detail-notice{display:flex;align-items:flex-start;gap:10px;border-radius:12px;background:#faeeeb;padding:13px;margin:23px 0;color:#95737e;font-size:11px;line-height:1.6}
+.product-detail-notice svg{color:#aa536b}
+.product-detail-quantity{display:flex;align-items:center;gap:14px;border-top:1px solid #eddfde;border-bottom:1px solid #eddfde;padding:19px 0;margin:20px 0;font-size:13px;font-weight:700}
+.product-detail-quantity .qty{margin-left:auto;gap:12px}
+.product-detail-quantity .qty button{height:32px;width:32px}
+.product-qty-total{color:#a75067;white-space:nowrap}
+.product-detail-actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.product-detail-actions .btn{padding:14px 18px}
+.product-favorite{width:49px;height:49px;border-radius:13px;border:1px solid #e9d6da;background:#fff;display:grid;place-items:center;color:#a15c6c}
+.product-favorite.liked{background:#f5e2e6;color:#b24e67}
+.product-added-notice{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#ecf7ee;color:#457d56;padding:12px;border-radius:12px;font-size:12px;line-height:1.5;margin-top:12px}
+.product-added-notice a{display:flex;align-items:center;gap:4px;color:#417650;font-weight:700}
+.product-detail-facts{margin-top:28px;padding-top:23px;border-top:1px solid #eee2e0}
+.product-detail-facts h2{font-size:24px;margin-bottom:11px}
+.product-detail-facts p{font-size:13px;line-height:1.8;color:#8a757d}
+.product-detail-facts>div{display:flex;align-items:flex-start;gap:10px;margin:12px 0;color:#8a757d;font-size:12px;line-height:1.6}
+.product-detail-facts svg{color:#b45670}
+.product-image-modal{position:fixed;inset:0;z-index:200;background:#2e1b24e8;display:flex;align-items:center;justify-content:center;padding:28px}
+.product-image-modal img{max-height:88dvh;max-width:min(100%,1000px);object-fit:contain;border-radius:16px}
+.product-modal-close{position:absolute;top:20px;right:20px;background:#fff;border:0;border-radius:50%;width:41px;height:41px;display:grid;place-items:center;color:#87465b}
+@media(max-width:760px){.product-detail-grid{grid-template-columns:minmax(0,1fr);gap:17px}.product-gallery-main{height:min(80vw,410px)}}
+@media(max-width:650px){
+ .product-detail-page{padding-top:25px}
+ .product-gallery-main{height:310px;border-radius:18px}
+ .product-detail-information h1{font-size:37px;margin:9px 0}
+ .product-detail-subtitle{font-size:13px}
+ .product-detail-notice{margin:14px 0}
+ .product-detail-quantity{flex-wrap:wrap;gap:10px}
+ .product-detail-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 48px;gap:7px}
+ .product-detail-actions .btn{padding:12px 8px;gap:5px;font-size:11px;line-height:1.25}
+ .product-detail-actions .btn svg{height:15px;width:15px}
+ .product-favorite{height:44px;width:44px}
+ .product-related{margin-top:41px}
+ .product-detail-facts h2{font-size:22px}
+}
+@media(max-width:350px){.product-detail-actions{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.product-favorite{grid-column:span 2;width:100%}}
