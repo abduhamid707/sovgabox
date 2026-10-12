@@ -1,6 +1,6 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import type {MouseEvent} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import {AnimatePresence,motion} from "motion/react";
 import {ArrowRight,Check,Gift,Heart,Minus,Plus,Search,ShoppingBag,Sparkles,Trash2,MessageSquare,X,PenLine,PackageCheck} from "lucide-react";
 import {P,money} from "../data/catalog";
@@ -25,6 +25,8 @@ export default function Builder(){
   const [query,setQuery]=useState("");
   const [isOpen,setIsOpen]=useState(true);
   const [showMessage,setShowMessage]=useState(Boolean(message));
+  const [showItems,setShowItems]=useState(false);
+  const [footerVisible,setFooterVisible]=useState(false);
   const [flying,setFlying]=useState<Flying[]>([]);
   const [flash,setFlash]=useState("");
   const flightIndex=useRef(0);
@@ -43,6 +45,14 @@ export default function Builder(){
     const timer=window.setTimeout(()=>setFlash(""),2100);
     return ()=>window.clearTimeout(timer);
   },[flash]);
+
+  useEffect(()=>{
+    const footer=document.querySelector("footer.footer");
+    if(!footer)return;
+    const observer=new IntersectionObserver(([entry])=>setFooterVisible(entry.isIntersecting),{threshold:0});
+    observer.observe(footer);
+    return ()=>observer.disconnect();
+  },[]);
 
   const flyToBox=(product:Product,event:MouseEvent<HTMLButtonElement>)=>{
     const source=event.currentTarget.closest(".builder-catalog-card")?.querySelector("img")||event.currentTarget;
@@ -79,8 +89,8 @@ export default function Builder(){
     <section className="builder-heading builder-v2-heading">
       <div className="builder-step-indicator"><span>01</span> TANLA <i/> <span>02</span> TABRIK <i/> <span>03</span> BUYURTMA</div>
       <span className="eyebrow"><Sparkles size={15}/> MAXSUS SOVG‘A UCHUN MAXSUS JOY</span>
-      <h1>O‘zing yaratgan <em>taassurot.</em></h1>
-      <p>Qalbingga yaqin narsalarni tanla. Har biri qutingga qo‘shiladi, sen esa o‘zingga xos sovg‘ani yaratasan.</p>
+      <h1>Sovg‘angni <em>o‘zing yig‘ ♡</em></h1>
+      <p>Mahsulotlarni tanla — ular virtual sovg‘aga qo‘shiladi. Qadoqni keyin kelishamiz.</p>
     </section>
     <section className="builder-layout builder-v2-layout" aria-label="Sovg‘a konstruktori">
       <div className="builder-preview builder-v2-preview">
@@ -89,10 +99,10 @@ export default function Builder(){
       </div>
       <div className="builder-selected builder-v2-summary">
         <div className="summary-eyebrow"><Gift size={15}/> SENING BOXING</div>
-        <div className="selected-top"><h2>Tanlaganlaring</h2><span className="count-pill">{count} ta</span></div>
+        <div className="selected-top"><h2>Tanlaganlaring</h2><span className="count-pill">{count} ta</span>{count>0&&<button type="button" className="selection-toggle" aria-expanded={showItems} onClick={()=>setShowItems(open=>!open)}>{showItems?"Yopish":"Ko‘rish"} <ArrowRight size={13}/></button>}</div>
         <p className="builder-summary-sub">Har bir tanlov — alohida e’tibor.</p>
         <AnimatePresence mode="popLayout">
-          {selected.length>0?<motion.div key="items" className="selected-items v2-selected-items" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+          {selected.length>0?<motion.div key="items" className={"selected-items v2-selected-items "+(!showItems?"builder-collapsed":"") } initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
             {selected.map(({product,qty})=>
               <motion.div layout key={product.id} className="selected-item v2-selected-item" initial={{opacity:0,x:14}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}>
                 <img src={product.image} alt={product.name}/>
@@ -140,11 +150,12 @@ export default function Builder(){
       </div>
       {available.length?<div className="product-grid builder-products">
         {available.map(product=><article className="product-card builder-catalog-card" key={product.id}>
-          <div className="product-media"><img src={product.image} alt={product.name} loading="lazy"/>{builder[product.id]>0&&<span className="builder-inbox-label"><Check size={13}/> {builder[product.id]} ta tanlangan</span>}</div>
+          <div className="product-media"><Link to={"/products/"+product.id} aria-label={product.name+" haqida batafsil"}><img src={product.image} alt={product.name} loading="lazy"/></Link>{builder[product.id]>0&&<span className="builder-inbox-label"><Check size={13}/> {builder[product.id]} ta tanlangan</span>}</div>
           <div className="product-body">
             <p className="mini-category">{product.category}</p>
-            <h3>{product.name}</h3>
+            <h3><Link to={"/products/"+product.id}>{product.name}</Link></h3>
             <strong>{money(product.price)}</strong>
+            <Link to={"/products/"+product.id} className="builder-card-detail">Batafsil ko‘rish <ArrowRight size={13}/></Link>
             <button type="button" className={"btn wide "+(builder[product.id]?"builder-again":"soft")} onClick={event=>handleAdd(product,event)}>
               <Plus size={16}/> {builder[product.id]?"Yana qo‘shish":"Qutiga qo‘shish"}
             </button>
@@ -164,7 +175,7 @@ export default function Builder(){
       onAnimationComplete={()=>setFlying(current=>current.filter(x=>x.id!==item.id))}
     />)}</AnimatePresence>
     <AnimatePresence>{flash&&<motion.div className="builder-toast" role="status" initial={{y:24,opacity:0}} animate={{y:0,opacity:1}} exit={{y:16,opacity:0}}><Check size={16}/>{flash}</motion.div>}</AnimatePresence>
-    {count>0&&<div className="builder-mobile-dock" ref={dockRef}>
+    {count>0&&!footerVisible&&<div className="builder-mobile-dock" ref={dockRef}>
       <div><span>{count} ta sovg‘a</span><strong>{money(total)}</strong></div>
       <button type="button" onClick={finish}>Savatga <ArrowRight size={16}/></button>
     </div>}
