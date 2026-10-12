@@ -45,7 +45,7 @@ export default function Checkout(){
    <span><span className="checkout-step-number">3</span> Tayyor</span>
   </div>
   <div className="page-intro checkout-intro">
-   <span className="eyebrow"><Sparkles size={14}/> HAR BIR SOVG‘A — ALHIDA HIKOYA</span>
+   <span className="eyebrow"><Sparkles size={14}/> HAR BIR SOVG‘A — ALOHIDA HIKOYA</span>
    <h1>Buyurtmani <em>yakunlaymiz ♡</em></h1>
    <p>Sovg‘angizni kimga va qayerga yetkazish kerakligini yozing. Qadoqlash va yetkazish tafsilotlarini keyinchalik operator bilan kelishamiz.</p>
   </div>

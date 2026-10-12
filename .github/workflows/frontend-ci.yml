@@ -34,23 +34,6 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Test mobile and desktop flows
         run: npx playwright test --workers=2
-      - name: Emit compact mobile screenshots for visual review
-        if: success()
-        run: |
-          node - <<'NODE'
-          const fs=require("node:fs"),path=require("node:path");
-          function walk(dir){
-            return fs.existsSync(dir)?fs.readdirSync(dir,{withFileTypes:true}).flatMap(x=>x.isDirectory()?walk(path.join(dir,x.name)):[path.join(dir,x.name)]):[];
-          }
-          for(const name of ["home-mobile.jpg","gift-studio-mobile.jpg","boxes-mobile.jpg","checkout-mobile.jpg"]){
-            const file=walk("test-results").find(p=>p.endsWith(name));
-            if(!file){console.log("SCREENSHOT_MISSING:"+name);continue;}
-            const b64=fs.readFileSync(file).toString("base64");
-            console.log("SCREENSHOT_BEGIN:"+name);
-            for(let i=0;i<b64.length;i+=3000)console.log(b64.slice(i,i+3000));
-            console.log("SCREENSHOT_END:"+name);
-          }
-          NODE
       - name: Upload mobile previews
         if: success()
         uses: actions/upload-artifact@v4

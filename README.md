@@ -42,4 +42,4 @@ Production validation: npm run build, then npm run preview.
 - Demo checkout stores details in localStorage only. Do not enter real personal information for testing.
 - Backend, admin, Payme and Yandex Go integration are not implemented.
 
-CI: .github/workflows/frontend-ci.yml runs npm ci and npm run build on pushes.
+CI: .github/workflows/frontend-ci.yml runs npm ci, npm run build, and Chromium Playwright E2E tests at 320px, 390px and desktop sizes. Mobile screenshots appear as an Actions artifact named mobile-ui-preview. For local browser tests, install @playwright/test with npm install --no-save --package-lock=false @playwright/test@1.56.1, then run npx playwright install chromium and npx playwright test.
