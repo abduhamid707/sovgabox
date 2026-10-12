@@ -27,7 +27,7 @@ function LoadingPage(){
 }
 export default function App(){
   return <>
-    <div className="demo-bar">🎁 Sovg‘aBox — demo sayt · Mahsulotlar va narxlar namunaviy, haqiqiy buyurtma qabul qilinmaydi</div>
+    <div className="demo-bar"><span className="demo-bar-full">🎁 Sovg‘aBox — demo sayt · Mahsulotlar va narxlar namunaviy, haqiqiy buyurtma qabul qilinmaydi</span><span className="demo-bar-small">🎁 Demo rejim · Haqiqiy buyurtma qabul qilinmaydi</span></div>
     <PageReset/>
     <Header/>
     <Suspense fallback={<LoadingPage/>}>

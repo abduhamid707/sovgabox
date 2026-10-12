@@ -119,3 +119,14 @@
  .v2-selected-item .chosen-label b{max-width:95px}
  .builder-mobile-dock strong{font-size:13px}
 }
+
+
+/* Keep the virtual lid close to the gift, away from stage labels. */
+.gift-lid{z-index:3}
+.studio-notice{display:none}
+.gift-ribbon{opacity:.35}
+@media(max-width:650px){
+ .gift-art{z-index:4}
+ .studio-handwriting{top:65px}
+ .studio-bottom{bottom:14px}
+}

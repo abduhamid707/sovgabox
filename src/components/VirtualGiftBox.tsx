@@ -55,7 +55,7 @@ export default function VirtualGiftBox({selected,count,message,isOpen,onToggle,s
         {isOpen&&rest>0&&<motion.span key={rest} initial={{scale:.3}} animate={{scale:1}} className="gift-overflow">+{rest}</motion.span>}
         {isOpen&&count===0&&<div className="gift-empty"><Sparkles size={28}/><span>Bu yerda sening<br/>sovg‘ang paydo bo‘ladi</span></div>}
       </div>
-      <motion.div className="gift-lid" style={{transformOrigin:"50% 100%"}} animate={{rotateX:isOpen?-66:0,y:isOpen?-75:0}} transition={{type:"spring",stiffness:120,damping:18}}>
+      <motion.div className="gift-lid" style={{transformOrigin:"50% 100%"}} animate={{rotateX:isOpen?-66:0,y:isOpen?-18:0}} transition={{type:"spring",stiffness:120,damping:18}}>
         <span className="lid-vertical"/><span className="lid-horizontal"/>
         <span className="lid-emblem"><Gift size={19}/></span>
       </motion.div>
