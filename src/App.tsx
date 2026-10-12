@@ -1,4 +1,5 @@
-import {lazy,Suspense,useEffect} from "react";
+import {lazy,Suspense,useLayoutEffect} from "react";
+import type {ReactNode} from "react";
 import {Route,Routes,useLocation} from "react-router-dom";
 import {Header,Footer,BottomNav} from "./components/Storefront";
 import HomePage from "./pages/HomePage";
@@ -14,10 +15,11 @@ const Favorites=lazy(()=>import("./pages/Favorites"));
 const Orders=lazy(()=>import("./pages/Orders"));
 const NotFound=lazy(()=>import("./pages/NotFound"));
 
-function PageReset(){
+function ScrollAfterRouteMount({children}:{children:ReactNode}){
   const {pathname}=useLocation();
-  useEffect(()=>{window.scrollTo({top:0,behavior:"auto"});},[pathname]);
-  return null;
+  // The effect runs after the lazy page commits, not while Suspense shows its fallback.
+  useLayoutEffect(()=>{window.scrollTo({top:0,left:0,behavior:"instant"});},[pathname]);
+  return <>{children}</>;
 }
 function LoadingPage(){
   return <div className="wrap route-loading" role="status" aria-live="polite">
@@ -28,10 +30,9 @@ function LoadingPage(){
 export default function App(){
   return <>
     <div className="demo-bar"><span className="demo-bar-full">🎁 Sovg‘aBox — demo sayt · Mahsulotlar va narxlar namunaviy, haqiqiy buyurtma qabul qilinmaydi</span><span className="demo-bar-small">🎁 Demo rejim · Haqiqiy buyurtma qabul qilinmaydi</span></div>
-    <PageReset/>
     <Header/>
     <Suspense fallback={<LoadingPage/>}>
-      <Routes>
+      <ScrollAfterRouteMount><Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/boxes" element={<BoxesPage/>}/>
         <Route path="/boxes/:id" element={<BoxDetail/>}/>
@@ -43,7 +44,7 @@ export default function App(){
         <Route path="/favorites" element={<Favorites/>}/>
         <Route path="/orders" element={<Orders/>}/>
         <Route path="*" element={<NotFound/>}/>
-      </Routes>
+      </Routes></ScrollAfterRouteMount>
     </Suspense>
     <Footer/>
     <BottomNav/>

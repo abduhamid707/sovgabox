@@ -68,6 +68,7 @@ test("gift builder to cart to demo order works without duplicate transfer",async
  await page.getByRole("link",{name:/Davom etish/}).click();
  await expect(page).toHaveURL(/\/checkout$/);
  await expect(page.getByRole("heading",{name:/Buyurtmani yakunlaymiz/})).toBeVisible();
+ await expect.poll(()=>page.evaluate(()=>window.scrollY),{message:"Checkout must open at scroll position 0"}).toBeLessThanOrEqual(2);
  await checkViewport(page,"/checkout with cart");
  if(testInfo.project.name==="mobile-390"){
   await page.screenshot({path:testInfo.outputPath("checkout-mobile.jpg"),type:"jpeg",quality:72,fullPage:false});
