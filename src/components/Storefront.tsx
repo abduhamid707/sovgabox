@@ -17,7 +17,26 @@ export function Banner(){return <div className="hero"><div className="hero-copy"
 
 export function BoxCard({box}:{box:Box}){const fav=useStore(s=>s.favorites.includes("b:"+box.id));const toggle=useStore(s=>s.toggle);return <article className="box-card"><div className="product-media"><Link to={"/boxes/"+box.id}><img loading="lazy" src={box.image} alt={box.title}/></Link>{box.tag&&<span className="tag">{box.tag}</span>}<button className={"heart-btn "+(fav?"liked":"")} aria-label="Sevimlilarga qo‘shish" onClick={()=>toggle("b:"+box.id)}><Heart size={19} fill={fav?"currentColor":"none"}/></button></div><div className="box-body"><div><h3>{box.title}</h3><p>{box.description}</p></div><div className="box-bottom"><strong>{money(box.price)}</strong><Link className="small-btn" to={"/boxes/"+box.id}>Ko‘rish <ArrowRight size={16}/></Link></div></div></article>}
 
-export function ProductCard({product}:{product:Product}){const add=useStore(s=>s.add);const toggle=useStore(s=>s.toggle);const fav=useStore(s=>s.favorites.includes("p:"+product.id));return <article className="product-card"><div className="product-media"><img loading="lazy" src={product.image} alt={product.name}/><button className={"heart-btn "+(fav?"liked":"")} onClick={()=>toggle("p:"+product.id)} aria-label="Sevimlilarga qo‘shish"><Heart size={18} fill={fav?"currentColor":"none"}/></button></div><div className="product-body"><p className="mini-category">{product.category}</p><h3>{product.name}</h3><strong>{money(product.price)}</strong><Button className="soft wide" onClick={()=>add("product",product.id)}><Plus size={16}/> Savatga</Button></div></article>}
+export function ProductCard({product}:{product:Product}){
+ const add=useStore(s=>s.add);
+ const toggle=useStore(s=>s.toggle);
+ const fav=useStore(s=>s.favorites.includes("p:"+product.id));
+ return <article className="product-card">
+  <div className="product-media">
+   <Link to={"/products/"+product.id} aria-label={product.name+"ni batafsil ko‘rish"}><img loading="lazy" src={product.image} alt={product.name}/></Link>
+   <button type="button" className={"heart-btn "+(fav?"liked":"")} onClick={()=>toggle("p:"+product.id)} aria-label={fav?"Sevimlilardan olish":"Sevimlilarga qo‘shish"}><Heart size={18} fill={fav?"currentColor":"none"}/></button>
+  </div>
+  <div className="product-body">
+   <p className="mini-category">{product.category}</p>
+   <h3><Link to={"/products/"+product.id}>{product.name}</Link></h3>
+   <strong>{money(product.price)}</strong>
+   <div className="product-card-actions">
+    <Link to={"/products/"+product.id} className="product-card-view">Batafsil <ArrowRight size={14}/></Link>
+    <Button className="soft" onClick={()=>add("product",product.id)}><Plus size={16}/> Savatga</Button>
+   </div>
+  </div>
+ </article>
+}
 
 export function Title({eyebrow,title,link,linkText}:{eyebrow?:string,title:string,link?:string,linkText?:string}){return <div className="section-title"><div>{eyebrow&&<span className="eyebrow">{eyebrow}</span>}<h2>{title}</h2></div>{link&&<Link to={link}>{linkText||"Barchasini ko‘rish"} <ArrowRight size={17}/></Link>}</div>}
 
