@@ -25,7 +25,7 @@ export default function VirtualGiftBox({selected,count,message,isOpen,onToggle,s
   return <div ref={stageRef} className="gift-stage gift-stage-premium" aria-label={"Virtual sovg‘a boxi. "+count+" ta mahsulot tanlangan."}>
     <div className="studio-orb studio-orb-one"/>
     <div className="studio-orb studio-orb-two"/>
-    <span className="studio-kicker"><Sparkles size={15}/> SAVG‘A SENING DIDINGDA</span>
+    <span className="studio-kicker"><Sparkles size={15}/> SOVG‘A SENING DIDINGDA</span>
     <span className="studio-handwriting">A little box,<br/>a lot of love ♡</span>
     <motion.span className="studio-star star-one" animate={{rotate:[0,25,0],scale:[1,1.18,1]}} transition={{duration:4,repeat:Infinity}}><Sparkles size={22}/></motion.span>
     <span className="studio-star star-two">✦</span>

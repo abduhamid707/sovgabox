@@ -49,7 +49,8 @@ export default function Builder(){
     const from=source.getBoundingClientRect();
     const stage=stageRef.current?.getBoundingClientRect();
     const visible=stage&&stage.bottom>80&&stage.top<window.innerHeight-55;
-    const target=visible?stage:dockRef.current?.getBoundingClientRect();
+    const fallback=window.innerWidth<650?{left:10,width:window.innerWidth-20,top:window.innerHeight-135,height:65}:null;
+    const target=visible?stage:(dockRef.current?.getBoundingClientRect()||fallback);
     if(!target||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
     const id=++flightIndex.current;
     setFlying(current=>[...current,{id,image:product.image,
