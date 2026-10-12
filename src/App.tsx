@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 
 const BoxesPage=lazy(()=>import("./pages/BoxesPage"));
 const BoxDetail=lazy(()=>import("./pages/BoxDetail"));
+const ProductDetail=lazy(()=>import("./pages/ProductDetail"));
 const CatalogPage=lazy(()=>import("./pages/CatalogPage"));
 const Builder=lazy(()=>import("./pages/Builder"));
 const Cart=lazy(()=>import("./pages/Cart"));
@@ -37,6 +38,7 @@ export default function App(){
         <Route path="/boxes" element={<BoxesPage/>}/>
         <Route path="/boxes/:id" element={<BoxDetail/>}/>
         <Route path="/catalog" element={<CatalogPage/>}/>
+        <Route path="/products/:id" element={<ProductDetail/>}/>
         <Route path="/builder" element={<Builder/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
